@@ -11,7 +11,7 @@ export const dbconnect = async () => {
   try {
     connect(process.env.MONGO_URI);
 
-    console.log("connect successfully---");
+    console.log("db connect successfully---");
   } catch (error) {
     console.log(error);
   }

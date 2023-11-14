@@ -66,7 +66,7 @@ export default function CartPage() {
                 <Price price={cart.totalPrice} />
               </div>
             </div>
-            <Link to="/checkout">Proceed To Checkout</Link>
+            <Link to="/processorder">Proceed To Order Food</Link>
           </div>
         </div>
       )}
