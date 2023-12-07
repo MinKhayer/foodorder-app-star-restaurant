@@ -83,11 +83,24 @@ export default function RegisterPage() {
           />
 
           <Input
+            type="tel" // Use "tel" type for phone numbers
+            label="Phone Number"
+            {...register("phoneNumber", {
+              required: true,
+              pattern: {
+                value: /^[0-9]{11}$/, // Customize the pattern based on your requirements
+                message: "Invalid Phone Number",
+              },
+            })}
+            error={errors.phoneNumber}
+          />
+
+          <Input
             type="text"
             label="Address"
             {...register("address", {
               required: true,
-              minLength: 10,
+              minLength: 5,
             })}
             error={errors.address}
           />

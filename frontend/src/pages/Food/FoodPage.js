@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Price from "../../components/Price/Price";
-import StarRating from "../../components/StarRating/StarRating";
+//import StarRating from "../../components/StarRating/StarRating";
 import Tags from "../../components/Tags/Tags";
 import { getById } from "../../services/foodservice";
 import classes from "./foodPage.module.css";
@@ -44,15 +44,15 @@ export default function FoodPage() {
                 ❤
               </span>
             </div>
-            <div className={classes.rating}>
+            {/* <div className={classes.rating}>
               <StarRating stars={food.stars} size={25} />
-            </div>
+            </div> */}
 
-            <div className={classes.origins}>
+            {/* <div className={classes.origins}>
               {food.origins?.map((origin) => (
                 <span key={origin}>{origin}</span>
               ))}
-            </div>
+            </div> */}
 
             <div className={classes.tags}>
               {food.tags && (

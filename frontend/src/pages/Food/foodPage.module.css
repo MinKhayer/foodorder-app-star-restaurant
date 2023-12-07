@@ -15,7 +15,7 @@
     border-radius: 3rem;
     flex: 1 0;
     object-fit: cover;
-    height: 35rem;
+    height: 25rem;
     margin: 1rem;
   }
   
@@ -86,7 +86,7 @@
   
   .container button {
     color: white;
-    background-color: #e72929;
+    background-color: green;
     border: none;
     font-size: 1.2rem;
     padding: 1rem;

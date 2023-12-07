@@ -6,7 +6,12 @@ import CartPage from "./pages/Cart/CartPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
-import OrderProcessPage from "./pages/OrderProcess/OrderProcessPage";
+import CheckoutPage from "./pages/Checkout/CheckoutPage";
+import OrderTrackPage from "./components/OrderTrack/OrderTrackPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import OrdersPage from "./pages/Orders/OrdersPage";
+import PaymentSucess from "./pages/Payment Success/PaymentSucess";
+import PaymentFailed from "./pages/PaymentFailed/PaymentFailed";
 
 export default function AppRoutes() {
   return (
@@ -19,10 +24,50 @@ export default function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route
-        path="/processorder"
+        path="/checkout"
         element={
           <AuthRoute>
-            <OrderProcessPage />
+            <CheckoutPage />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/track/:orderId"
+        element={
+          <AuthRoute>
+            <OrderTrackPage />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <AuthRoute>
+            <ProfilePage />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/orders/:filter?"
+        element={
+          <AuthRoute>
+            <OrdersPage />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/payment/success"
+        element={
+          <AuthRoute>
+            <PaymentSucess />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/payment/fail"
+        element={
+          <AuthRoute>
+            <PaymentFailed />
           </AuthRoute>
         }
       />

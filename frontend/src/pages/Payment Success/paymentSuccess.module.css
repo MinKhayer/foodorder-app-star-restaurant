@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 3rem;
+  }
+  
+  .details {
+    width: 28rem;
+  }
+  .button {
+    border: none;
+    outline: none;
+    align-items: center;
+    text-align: center;
+    color: white;
+  
+  background-color: red;
+    font-weight: 100;
+    border-radius: 0.8rem;
+    width: 20%;
+    margin: 1rem auto;
+    opacity: 0.8;
+  }
+  
+  .button a {
+    cursor: pointer;
+    opacity: 1;
+  }

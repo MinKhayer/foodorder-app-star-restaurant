@@ -68,6 +68,10 @@ export default function CartProvider({ children }) {
     }
   };
 
+  const removeAllFromCart = () => {
+    setCartItems([]);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -75,6 +79,7 @@ export default function CartProvider({ children }) {
         removeFromCart,
         changeQuantity,
         addToCart,
+        removeAllFromCart,
       }}
     >
       {children}
