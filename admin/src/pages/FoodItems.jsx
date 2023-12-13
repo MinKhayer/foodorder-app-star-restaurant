@@ -9,12 +9,13 @@ const FoodItemsContainer = styled.div`
 `;
 
 const Header = styled.h1`
-  margin-bottom: 40px; // Add some margin to the bottom for spacing
+  margin-bottom: 40px;
+  margin-top: 40px; // Add some margin to the bottom for spacing
 `;
 
 const AddButton = styled(PrimaryButton)`
   position: absolute;
-  top: 8px;
+  top: 0px;
   right: 30px;
  
   

@@ -67,6 +67,19 @@ router.put(
     res.send(generateTokenResponse(user));
   })
 );
+// router.delete("/:userId", async (req, res) => {
+//   try {
+//     const data = await OrderModel.findByIdAndDelete(req.params.userId);
+//     res.status(200).json({
+//       message: "success",
+//       data: data,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "failed",
+//     });
+//   }
+// });
 
 router.put(
   "/changePassword",

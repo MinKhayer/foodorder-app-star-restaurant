@@ -51,6 +51,19 @@ router.get("/allstatus", (req, res) => {
   const allStatus = Object.values(OrderStatus);
   res.send(allStatus);
 });
+router.delete("/:orderId", async (req, res) => {
+  try {
+    const data = await OrderModel.findByIdAndDelete(req.params.orderId);
+    res.status(200).json({
+      message: "success",
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "failed",
+    });
+  }
+});
 
 router.get(
   "/:status?",

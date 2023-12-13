@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { OrderStatus } from "../constants/orderStatus.js";
 import { FoodModel } from "./food.model.js";
+import { DeliveryStatus } from "../constants/deliveryStatus.js";
 
 export const LatLngSchema = new Schema(
   {
@@ -33,12 +34,13 @@ const orderSchema = new Schema(
     name: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     address: { type: String, required: true },
-    addressLatLng: { type: LatLngSchema, required: true },
+    //addressLatLng: { type: LatLngSchema, required: true },
     paymentId: { type: String },
     totalPrice: { type: Number, required: true },
     items: { type: [OrderItemSchema], required: true },
     status: { type: String, default: OrderStatus.NEW },
     user: { type: Schema.Types.ObjectId, required: true },
+    delivery_status: { type: String, default: DeliveryStatus.NEW },
   },
   {
     timestamps: true,

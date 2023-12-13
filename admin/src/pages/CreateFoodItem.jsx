@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useRef, useState } from "react"
 import { WithContext as ReactTags } from 'react-tag-input';
 import styled from "styled-components";
 
@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const CreateFoodItem = () => {
 
-  const [postData, setPostData] = useState();
+  const imageRef = useRef();
   const [tags, setTags] = useState([
   ]);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -17,6 +17,7 @@ const CreateFoodItem = () => {
   };
 
   const handleAddition = tag => {
+    console.log(tag);
     setTags([...tags, tag]);
   };
 
@@ -34,57 +35,39 @@ const CreateFoodItem = () => {
     console.log('The tag at index ' + index + ' was clicked');
   };
 
-  console.log(postData)
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const price = parseFloat(form.price.value);
-    const cookTime = form.cookTime.value;
 
-    const description = form.description.value;
-    const imageUrl = form.imageUrl.value;
-
-    const foodItem = {
-      name,
-      price,
-      cookTime,
-      favorite: isFavorite,
-      description,
-      imageUrl,
-      tags
-    }
-
-    setPostData(foodItem)
+    const formData = new FormData();
+    formData.append("name", form.name.value)
+    formData.append("price", form.price.value)
+    formData.append("cookTime", form.cookTime.value)
+    formData.append("description", form.description.value)
+    formData.append("imageUrl", imageRef.current.files[0])
+    await axios.post('http://localhost:5000/api/foods', formData)
+      .then(function (response) {
+        window.alert("Successfully upload")
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  useEffect(() => {
 
-    const fetchData = async () => {
-      await axios.post('http://192.168.0.128:5000/api/foods', postData)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-
-    fetchData()
-  }, [postData])
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <div>
-        <label >FoodItem Name: </label>
+        <label >FoodItem Name </label>
         <input className="border" type="text" name="name" />
-        <label >FoodItem Price: </label>
+        <label >FoodItem Price </label>
         <input className="border" type="number" name="price" />
-        <label >CookTime: </label>
+        <label >CookTime </label>
         <input className="border" type="text" name="cookTime" />
-        <label>Favorite: </label>
+        <label>Favorite </label>
         <input
           className="border"
           type="radio"
@@ -92,11 +75,11 @@ const CreateFoodItem = () => {
           checked={isFavorite}
           onChange={() => setIsFavorite(!isFavorite)}
         />
-        <label >Description: </label>
+        <label >Description </label>
         <input className="border" type="text" name="description" />
-        <label >Image: </label>
-        <input type="file" name="imageUrl" id="" />
-        <label >Tags: </label>
+        <label >Image </label>
+        <input ref={imageRef} type="file" name="imageUrl" id="" />
+        <label >Tags </label>
 
         <ReactTags
           tags={tags}

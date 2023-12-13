@@ -1,9 +1,14 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import { FaTachometerAlt, FaStickyNote, FaRegChartBar, FaRegCalendarAlt, FaChevronRight, FaProductHunt, FaCartPlus, FaUser } from "react-icons/fa"
+
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { FaTachometerAlt, FaStickyNote, FaRegChartBar, FaRegCalendarAlt, FaChevronRight, FaProductHunt, FaCartPlus, FaUser, FaDelicious } from "react-icons/fa"
 
 
 const MainLayout = () => {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        // Implement your logout logic here
+        navigate('/login');
+    };
     return (
         <div className='flex items-start gap-16'>
             <div className='w-1/5 bg-black h-screen flex flex-col text-white items-center text-2xl font-bold'>
@@ -30,6 +35,12 @@ const MainLayout = () => {
                     </div>
                     <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
                         <div className='flex items-center gap-[10px]'>
+                            <FaDelicious color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white hover:text-blue-500'><Link to='/delivery'>Delivery status</Link></p>
+                        </div>
+                        <FaChevronRight color='white' />
+                    </div>
+                    <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                        <div className='flex items-center gap-[10px]'>
                             <FaUser color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white hover:text-blue-500'><Link to='/users'>Users</Link></p>
                         </div>
                         <FaChevronRight color='white' />
@@ -49,6 +60,14 @@ const MainLayout = () => {
                     <div className='flex items-center gap-[10px] py-[15px] cursor-pointer'>
                         <FaRegCalendarAlt color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white  hover:text-blue-500'>Tables</p>
                     </div>
+                </div>
+                <div className='flex items-center justify-end px-[15px] py-[30px]'>
+                    <button
+                        onClick={handleLogout}
+                        className='text-[14px] leading-[20px] font-normal text-white hover:text-blue-500 cursor-pointer'
+                    >
+                        Logout
+                    </button>
                 </div>
             </div>
             <div className='w-4/5'>

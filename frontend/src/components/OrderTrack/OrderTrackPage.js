@@ -5,8 +5,8 @@ import NotFound from "../../components/NotFound/NotFound";
 import classes from "./orderTrackPage.module.css";
 import DateTime from "../../components/DateTime/DateTime";
 import OrderItemsList from "../../components/OrderItemsList/OrderItemsList";
-import Title from "../../components/Title/Title";
-import Map from "../../components/Map/Map";
+//import Title from "../../components/Title/Title";
+//import Map from "../../components/Map/Map";
 
 export default function OrderTrackPage() {
   const { orderId } = useParams();
@@ -64,10 +64,10 @@ export default function OrderTrackPage() {
           <OrderItemsList order={order} />
         </div>
 
-        <div>
+        {/* <div>
           <Title title="Your Location" fontSize="1.6rem" />
           <Map location={order.addressLatLng} readonly={true} />
-        </div>
+        </div> */}
 
         {order.status === "NEW" && (
           <div className={classes.payment}>

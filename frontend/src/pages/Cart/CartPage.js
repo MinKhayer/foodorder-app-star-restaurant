@@ -5,6 +5,8 @@ import Title from "../../components/Title/Title";
 import { Link } from "react-router-dom";
 import Price from "../../components/Price/Price";
 import NotFound from "../../components/NotFound/NotFound";
+import { base_url } from "../../utility/baseUrl";
+import Footer from "../../components/Footer/Footer";
 export default function CartPage() {
   const { cart, removeFromCart, changeQuantity } = useCart();
   return (
@@ -19,7 +21,7 @@ export default function CartPage() {
               <li key={item.food.id}>
                 <div>
                   <img
-                    src={`/foods/${item.food.imageUrl}`}
+                    src={`${base_url}/${item.food.imageUrl}`}
                     alt={item.food.name}
                   />
                 </div>
@@ -27,23 +29,20 @@ export default function CartPage() {
                   <Link to={`/food/${item.food.id}`}>{item.food.name}</Link>
                 </div>
                 <div>
-                  <select
-                    value={item.quantity}
-                    onChange={(e) =>
-                      changeQuantity(item, Number(e.target.value))
-                    }
+                  <Link to={`/food/${item.food.id}`}>{item.food.name}</Link>
+                </div>
+                <div className={classes.quantity}>
+                  <button
+                    onClick={() => changeQuantity(item, item.quantity - 1)}
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                  </select>
+                    -
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() => changeQuantity(item, item.quantity + 1)}
+                  >
+                    +
+                  </button>
                 </div>
                 <div>
                   <Price price={item.price} />
@@ -70,6 +69,7 @@ export default function CartPage() {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }

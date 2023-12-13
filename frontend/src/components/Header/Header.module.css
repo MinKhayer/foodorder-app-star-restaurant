@@ -1,11 +1,11 @@
 .header {
     background: white;
     padding: 0;
-    border-bottom: 1px solid #e72929;
+    /* border-bottom: 1px solid #e72929; */
   }
   
   .header a {
-    color: #af1313;
+    color: black;
   }
   
   .header a:hover {
@@ -34,7 +34,7 @@
     display: inline-block;
   }
   .menu_container {
-    position: relative;
+    position: relative; 
   }
   
   .menu {

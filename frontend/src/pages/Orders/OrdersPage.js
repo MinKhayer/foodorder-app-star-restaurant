@@ -6,6 +6,8 @@ import Title from "../../components/Title/Title";
 import DateTime from "../../components/DateTime/DateTime";
 import Price from "../../components/Price/Price";
 import NotFound from "../../components/NotFound/NotFound";
+import axios from "axios";
+import { base_url } from "../../utility/baseUrl";
 
 const initialState = {};
 const reducer = (state, action) => {
@@ -24,15 +26,30 @@ export default function OrdersPage() {
   const [{ allStatus, orders }, dispatch] = useReducer(reducer, initialState);
 
   const { filter } = useParams();
-
-  useEffect(() => {
-    // getAllStatus().then((status) => {
-    //   dispatch({ type: "ALL_STATUS_FETCHED", payload: status });
-    // });
+  const fetchData = () => {
     getAll(filter).then((orders) => {
       dispatch({ type: "ORDERS_FETCHED", payload: orders });
     });
+  };
+
+  useEffect(() => {
+    fetchData(); // Initial fetch
+
+    const intervalId = setInterval(fetchData, 1000); // Fetch data every 10 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on component unmount
   }, [filter]);
+
+  useEffect(() => {
+    axios
+      .get("/api/orders")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -75,13 +92,21 @@ export default function OrdersPage() {
             <div className={classes.items}>
               {order.items.map((item) => (
                 <Link key={item.food.id} to={`/food/${item.food.id}`}>
-                  <img src={item.food.imageUrl} alt={item.food.name} />
+                  <img
+                    src={`${base_url}/${item.food.imageUrl}`}
+                    alt={item.food.name}
+                  />
                 </Link>
               ))}
             </div>
             <div className={classes.footer}>
               <div>
                 <Link to={`/track/${order.id}`}>Show Order</Link>
+              </div>
+              <div>
+                <span className={classes.delivery}>
+                  Delivery status: {order.delivery_status}
+                </span>
               </div>
               <div>
                 <span className={classes.price}>

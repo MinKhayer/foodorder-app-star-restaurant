@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Price from "../Price/Price";
 import classes from "./orderItemsList.module.css";
+import { base_url } from "../../utility/baseUrl";
 
 export default function OrderItemsList({ order }) {
   return (
@@ -16,7 +17,7 @@ export default function OrderItemsList({ order }) {
           <tr key={item.food.id}>
             <td>
               <Link to={`/food/${item.food.id}`}>
-                <img src={`/foods/${item.food.imageUrl}`} />
+                <img src={`${base_url}/${item.food.imageUrl}`} />
               </Link>
             </td>
             <td>{item.food.name}</td>

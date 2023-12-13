@@ -12,6 +12,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import OrderItemsList from "../../components/OrderItemsList/OrderItemsList";
 import Map from "../../components/Map/Map";
+import Footer from "../../components/Footer/Footer";
 export default function CheckoutPage() {
   //const params = useParams();
   const { cart } = useCart();
@@ -26,10 +27,10 @@ export default function CheckoutPage() {
   } = useForm();
 
   const submit = async (data) => {
-    if (!order.addressLatLng) {
-      toast.warning("Please select your location on the map");
-      return;
-    }
+    // if (!order.addressLatLng) {
+    //   toast.warning("Please select your location on the map");
+    //   return;
+    // }
 
     const orderData = await createOrder({
       ...order,
@@ -67,7 +68,7 @@ export default function CheckoutPage() {
           </div>
           <OrderItemsList order={order} />
         </div>
-        <div>
+        {/* <div>
           <Title title="Choose Your Location" fontSize="1.6rem" />
           <Map
             location={order.addressLatLng}
@@ -76,7 +77,7 @@ export default function CheckoutPage() {
               setOrder({ ...order, addressLatLng: latlng });
             }}
           />
-        </div>
+        </div> */}
 
         <div className={classes.buttons_container}>
           <div className={classes.buttons}>
@@ -89,6 +90,7 @@ export default function CheckoutPage() {
           </div>
         </div>
       </form>
+      <Footer />
     </>
   );
 }

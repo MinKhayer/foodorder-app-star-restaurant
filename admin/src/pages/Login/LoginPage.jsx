@@ -1,71 +1,69 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import classes from "./loginPage.module.css";
-import Title from "../../components/Title/Title";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const LoginPage = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
-  const { user, login } = useAuth();
-  const [params] = useSearchParams();
-  const returnUrl = params.get("returnUrl");
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-  useEffect(() => {
-    if (!user) return;
+    const userInfo = {
+      email,
+      password
+    }
 
-    returnUrl ? navigate(returnUrl) : navigate("/");
-  }, [user]);
+    // Sent to backend;
+    axios.post('/admin', userInfo)
+      .then(res => {
+        if (res.status == 200) {
+          alert("Login successfull")
+          navigate('/dashboard')
+        }
+        else {
+          console.log(res)
+          alert("Login failed")
+        }
 
-  const submit = async ({ email, password }) => {
-    await login(email, password);
-  };
+      })
+      .catch(error => {
+        console.log(error.message)
+        // const errorMsg = error.message;
+        alert(`Login failed`)
+      })
+
+  }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.details}>
-        <Title title="Login" />
-        <form onSubmit={handleSubmit(submit)} noValidate>
-          <Input
-            type="email"
-            label="Email"
-            {...register("email", {
-              required: true,
-              pattern: {
-                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,63}$/i,
-                message: "Email Is Not Valid",
-              },
-            })}
-            error={errors.email}
-          />
+    <div>
+      <div className="flex justify-center py-5" >
+        <div>
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="bg-white p-8 rounded shadow-md w-96">
+              <h2 className="text-2xl font-bold mb-4">Login</h2>
 
-          <Input
-            type="password"
-            label="Password"
-            {...register("password", {
-              required: true,
-            })}
-            error={errors.password}
-          />
 
-          <Button type="submit" text="Login" />
-          <div className={classes.register}>
-            New user? &nbsp;
-            <Link to={`/register${returnUrl ? "?returnUrl=" + returnUrl : ""}`}>
-              Register here
-            </Link>
-          </div>
-        </form>
+              <div className="mb-4">
+                <label className="block text-gray-600 text-sm font-medium mb-2">Email</label>
+                <input type="email" id="email" name="email" className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Enter your email" required />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-600 text-sm font-medium mb-2">Password</label>
+                <input type="password" id="password" name="password" className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Enter your password" required />
+              </div>
+
+              <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                Login
+              </button>
+
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

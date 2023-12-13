@@ -5,6 +5,8 @@ import MainLayout from "../layout/Layout";
 import FoodItem from "../Details/FoodItem";
 import OrderList from "../List/OrderList";
 import Users from "../pages/Users";
+import LoginPage from "../pages/Login/LoginPage";
+import DeliveryStatus from "../List/DeliveryStatus";
 
 
 
@@ -31,13 +33,22 @@ const router = createBrowserRouter([
                 element: <OrderList />
             },
             {
+                path: "/delivery",
+                element: <DeliveryStatus></DeliveryStatus>
+            },
+            {
                 path: "/users",
                 element: <Users />
-            }
+            },
+
 
         ]
 
-    }
+    },
+    {
+        path: "/login",
+        element: <LoginPage />
+    },
 ])
 
 export default router;

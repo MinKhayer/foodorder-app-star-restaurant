@@ -3,6 +3,7 @@ import classes from "./thumbnails.module.css";
 import { Link } from "react-router-dom";
 //import StarRating from "../StarRating/StarRating";
 import Price from "../Price/Price";
+import { base_url } from "../../utility/baseUrl";
 export default function Thumbnails({ foods }) {
   console.log(foods);
   return (
@@ -12,7 +13,8 @@ export default function Thumbnails({ foods }) {
           <Link to={`/food/${food.id}`}>
             <img
               className={classes.image}
-              src={`/foods/${food.imageUrl}`}
+              //src={`/foods/${food.imageUrl}`}
+              src={`${base_url}/${food.imageUrl}`}
               alt={food.name}
             />
 

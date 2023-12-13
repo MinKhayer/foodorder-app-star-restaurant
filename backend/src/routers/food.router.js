@@ -1,27 +1,31 @@
 import { Router } from "express";
 import { FoodModel } from "../models/food.model.js";
 import handler from "express-async-handler";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploader");
+  },
+  filename: function (req, file, cb) {
+    const originalname = file.originalname; // Get the original filename
+    const extension = originalname.split(".").pop(); // Get the file extension
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
+  },
+});
+const upload = multer({ storage: storage });
 
 const router = Router();
 //Add Food
-router.post("/", async (req, res) => {
-  const { name, price, image } = req.body;
+router.post("/", upload.single("imageUrl"), async (req, res) => {
   try {
-    if (image) {
-      const uploadRes = await cloudinary.uploader.upload(image, {
-        upload_preset: "",
-      });
-      if (uploadRes) {
-        const foods = new Foods({
-          name,
-          price,
-          image: uploasRes,
-        });
-
-        const saveFoods = await foods.save();
-        res.status(200).send(saveFoods);
-      }
-    }
+    if (req.file.filename) req.body.imageUrl = req.file.filename;
+    const data = await FoodModel.create(req.body);
+    res.status(200).json({
+      success: true,
+      data: data,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
@@ -80,6 +84,7 @@ router.get(
     res.send(foods);
   })
 );
+
 router.get(
   "/tag/:tag",
   handler(async (req, res) => {
@@ -100,24 +105,25 @@ router.get(
   })
 );
 
-router.delete("/:foodId", async (req, res) => {
-  try {
-    const foods = await Foods.findById(req.params._id);
-    if (!foods) return res.status(404).send("Food Item not found...");
+//Food Item Delete
 
-    if (foods.image.public_id) {
-      const destroyResponse = await cloudinary.uploader.destroy(
-        foods.image.public_id
-      );
-      if (destroyResponse) {
-        const deleteFood = await FoodModel.findByIdAndDelete(req.params._id);
-        res.status(200).send(deleteFood);
-      }
+router.delete("/", async (req, res) => {
+  const myId = req.query.id;
+  const data = await FoodModel.find({ price: myId });
+  try {
+    if (data.length > 0) {
+      const result = await FoodModel.deleteOne({ price: myId });
+      res.send({
+        message: "deleted successfully",
+        data: result,
+      });
     } else {
-      console.log("Action terminated. Failed to deleted food item image..");
+      res.send({
+        message: "no data found",
+      });
     }
   } catch (error) {
-    res.status(500).send(error);
+    console.log("Something wrong");
   }
 });
 

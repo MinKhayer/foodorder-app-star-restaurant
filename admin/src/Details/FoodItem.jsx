@@ -8,7 +8,9 @@ const FoodItem = () => {
     const [foodItem, setFoodItem] = useState({});
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+
     console.log(foodItem);
+
     useEffect(() => {
         setLoading(true)
         axios.get(`/foods/${id}`)

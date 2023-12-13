@@ -1,0 +1,100 @@
+/* Footer.module.css */
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0;
+}
+
+.footerRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.footerColumn {
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.footerColumn h5 {
+  color: #ffcc00;
+  margin-bottom: 10px;
+}
+
+.footerColumn p {
+  margin: 5px 0;
+}
+.calling{
+  color:#fff;
+}
+
+.listUnstyled {
+  list-style: none;
+  padding: 0;
+}
+
+.listUnstyled li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.listUnstyled li:last-child {
+  margin-right: 0;
+}
+
+.icon {
+  font-size: 24px;
+  color: #fff;
+}
+
+.iconFacebook {
+  background-color: #1877f2;
+}
+
+.iconTwitter {
+  background-color: #1da1f2;
+}
+
+.iconInstagram {
+  background-color: #e1306c;
+}
+
+.iconYoutube {
+  background-color: #ff0000;
+}
+
+.copyRight {
+  margin-top: 20px;
+}
+
+.copyRight a {
+  color: #ffcc00;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.scrollTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: green;
+  color: #333;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.iconArrowUp {
+  font-size: 24px;
+}
+.iconFacebook,
+.iconTwitter,
+.iconInstagram,
+.iconYoutube {
+  font-size: 24px;
+  color: #fff; 
+  margin-right: 10px; 
+}
